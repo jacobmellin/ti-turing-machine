@@ -1,15 +1,27 @@
+/* *
+ * TI Deterministic Turing Machine Implementation
+ * Jacob Mellin, 675891
+ * */
+
 #include <stdlib.h>
 #include <stdio.h>
 
 #include "ti_turing_band.h"
+#include "ti_turing_control.h"
 
-int main() {
+int main(int argc, char *argv[]) {
     printf("TI Deterministic Turing Machine Implementation\n");
 
-    band_t * band = make_band();
+    machine_t * machine = make_machine(3,1,0);
 
-    int data[] = {0,1,1,2,0,1};
-    arr_to_band(band, data, 6);
+    machine_set_accepting_state(machine, 0, 2);
+    machine_set_transition(machine, 0, 1,     1, 1,     DIR_RIGHT);
+    machine_set_transition(machine, 1, BLANK, 2, BLANK, DIR_RIGHT);
+    machine_set_transition(machine, 1, 0,     0, 0,     DIR_RIGHT);
 
-    print_band(band);
+    char * input = argv[1];
+
+    int result = machine_evaluate(machine, input);
+
+    printf("%d\n", result);
 }

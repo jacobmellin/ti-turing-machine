@@ -5,7 +5,7 @@
 #include "ti_turing_band.h"
 
 void arr_to_band(band_t * band, int input[], int len) {
-    symbol_t * first = band->head;
+    cell_t * first = band->head;
 
     for (int i = 0; i < len; i++) {
         update_band(band, input[i], DIR_RIGHT);
@@ -14,23 +14,31 @@ void arr_to_band(band_t * band, int input[], int len) {
     band->head = first;
 }
 
-symbol_t * make_symbol(symbol_t * left_of, symbol_t * right_of) {
-    symbol_t* symbol = (symbol_t *) malloc(sizeof(symbol_t));
-    symbol->val = BLANK;
-    symbol->left = right_of;
-    symbol->right = left_of;
-    return symbol;
+void string_to_band(band_t * band, char* input) {
+    cell_t * first = band->head;
+    for (int i = 0; i < strlen(input); i++) {
+        update_band(band, input[i] - '0', DIR_RIGHT);
+    }
+    band->head = first;
+}
+
+cell_t * make_cell(cell_t * left_of, cell_t * right_of) {
+    cell_t* cell = (cell_t *) malloc(sizeof(cell_t));
+    cell->val = BLANK;
+    cell->left = right_of;
+    cell->right = left_of;
+    return cell;
 }
 
 struct band* make_band() {
-    symbol_t * head = 0;
-    head = (symbol_t *) malloc(sizeof(symbol_t));
+    cell_t * head = 0;
+    head = (cell_t *) malloc(sizeof(cell_t));
 
     head->val = BLANK;
     head->right = 0;
     head->left = 0;
 
-    band_t * band = 0;;
+    band_t * band = 0;
     band = (band_t *) malloc(sizeof(band_t));
 
     band->head = head;
@@ -42,26 +50,26 @@ int check_band(band_t *band, int val) {
 }
 
 void update_band(band_t *band, int val, int dir) {
-    symbol_t * next_symbol;
+    cell_t * next_cell = band->head;
 
     if (dir == DIR_LEFT) {
         if(!band->head->left) {
-            band->head->left = make_symbol(band->head, 0);
+            band->head->left = make_cell(band->head, 0);
         }
-        next_symbol = band->head->left;
+        next_cell = band->head->left;
     } else if (dir == DIR_RIGHT) {
         if(!band->head->right) {
-            band->head->right = make_symbol(0, band->head);
+            band->head->right = make_cell(0, band->head);
         }
-        next_symbol = band->head->right;
+        next_cell = band->head->right;
     }
 
     band->head->val = val;
-    band->head = next_symbol;
+    band->head = next_cell;
 }
 
 void print_band(band_t *band) {
-    symbol_t * current = band->head;
+    cell_t * current = band->head;
 
     // Got to beginning of band
     while(current->left) {
@@ -70,18 +78,22 @@ void print_band(band_t *band) {
 
     // Print each symbol on the band, replacing BLANK with _
     while(current) {
-        char symbol_output = current->val + 0;
+        char cell_output = current->val + 0;
 
-        if(symbol_output == BLANK) {
-            symbol_output = '_';
+        if(cell_output == BLANK) {
+            cell_output = '_';
         } else {
-            symbol_output += 48;
+            cell_output += 48;
         }
 
-        printf("%c", symbol_output);
+        printf("%c", cell_output);
         // printf("%d", current->val);
         current = current->right;
     }
 
     printf("\n");
 }
+
+void free_band(band_t * band) {
+    // TODO
+};
