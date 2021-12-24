@@ -4,6 +4,8 @@
 #include "ti_turing_control.h"
 #include "ti_turing_band.h"
 
+#define MAX_STEPS 10000
+
 int_array_t * make_int_arr(size_t size) {
     int_array_t * int_arr = (int_array_t*) malloc(sizeof(int_array_t));
     int_arr->data = malloc(sizeof(int)*size);
@@ -98,10 +100,20 @@ int machine_evaluate(machine_t * machine, char * input) {
     printf("Input:  ");
     print_band(machine->band);
 
-    while(machine_step(machine));
+    int steps = 0;
+
+    while(machine_step(machine)) {
+        ++steps;
+        if (steps >= MAX_STEPS) {
+            printf("Stopped execution after %d steps", MAX_STEPS);
+            return 0;
+        }
+    };
 
     printf("Output: ");
     print_band(machine->band);
+    
+    if(steps < MAX_STEPS) printf("%d steps before halt.\n", steps);
 
     return int_arr_get_index(
         machine->accepting_states, 
