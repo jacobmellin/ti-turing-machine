@@ -27,9 +27,7 @@ typedef struct machine {
     int num_accepting_states;
     int starting_state; // Zero based
     int current_state; // Zero based
-
     band_t * band;
-
     int_array_t * accepting_states;
     transition_t * transitions;
 } machine_t;

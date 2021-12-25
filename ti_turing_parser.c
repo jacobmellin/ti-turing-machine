@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include "ti_turing_parser.h"
 
-void parse_machine(machine_t * machine, char * input, char ** word) {
+void parse_machine(machine_t ** machine, char * input, char ** word) {
     int num_states = 0;
     int num_band_symbols = 0;
     int num_accepting_states = 0;
@@ -33,7 +33,7 @@ void parse_machine(machine_t * machine, char * input, char ** word) {
         }
     }
 
-    machine = make_machine(num_states, num_accepting_states, starting_state);
+    *machine = make_machine(num_states, num_accepting_states, starting_state);
 
     printf("Number of states: %d\n", num_states);
     printf("Number of band symbols: %d\n", num_band_symbols);
@@ -48,8 +48,8 @@ void parse_machine(machine_t * machine, char * input, char ** word) {
         if(v == 0) {
             ++current_accepting;
         } else if(v == 1) {
+            machine_set_accepting_state(*machine, ones-3, current_accepting-1);
             ++ones;
-            machine_set_accepting_state(machine, ones-3, current_accepting-1);
             printf("%d, ", current_accepting-1);
             current_accepting = 0;
         }
@@ -94,7 +94,7 @@ void parse_machine(machine_t * machine, char * input, char ** word) {
             
             if((ones-3-num_accepting_states) % 5 == 0) {
                 machine_set_transition(
-                    machine,
+                    *machine,
                     current_condition_state-1,
                     current_condition_symbol-1,
                     current_target_state-1,

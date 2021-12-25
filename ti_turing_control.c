@@ -43,7 +43,6 @@ machine_t * make_machine(
         // Make 3 transitions for each state, so we can implicitly
         // get the right transition for a specific symbol.
         machine->transitions = (transition_t*) malloc(sizeof(transition_t) * num_states * 3);
-
         return machine;
 };
 

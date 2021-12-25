@@ -28,9 +28,8 @@ int main(int argc, char *argv[]) {
     char * word;
     machine_t * machine;
 
-    parse_machine(machine, input, &word);
-    printf("%s\n", word);
-    int result = machine_evaluate(machine,word);
+    parse_machine(&machine, input, &word);
+    int result = machine_evaluate(machine, word);
 
     printf("%d\n", result);
 }
