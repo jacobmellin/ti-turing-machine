@@ -1,5 +1,6 @@
-#include <stdlib.h>
+#pragma once
 
+#include <stdlib.h>
 #include "ti_turing_band.h"
 
 typedef struct int_array {
@@ -24,8 +25,8 @@ typedef struct transition {
 typedef struct machine {
     int num_states;
     int num_accepting_states;
-    int starting_state;
-    int current_state;
+    int starting_state; // Zero based
+    int current_state; // Zero based
 
     band_t * band;
 
