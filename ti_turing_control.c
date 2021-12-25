@@ -104,7 +104,7 @@ int machine_evaluate(machine_t * machine, char * input) {
     while(machine_step(machine)) {
         ++steps;
         if (steps >= MAX_STEPS) {
-            printf("Stopped execution after %d steps", MAX_STEPS);
+            printf("Stopped execution after %d steps.\n", MAX_STEPS);
             return 0;
         }
     };
