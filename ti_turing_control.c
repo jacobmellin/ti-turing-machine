@@ -90,7 +90,7 @@ int machine_step(machine_t * machine) {
     return 0;
 }
 
-int machine_evaluate(machine_t * machine, char * input) {
+int machine_evaluate(machine_t * machine, char * input, int max_steps) {
     machine->current_state = 0;
     machine->band = make_band();
 
@@ -99,13 +99,15 @@ int machine_evaluate(machine_t * machine, char * input) {
     printf("Input:  ");
     print_band(machine->band);
 
+
+    if(!max_steps) max_steps = MAX_STEPS;
     int steps = 0;
 
     while(machine_step(machine)) {
         ++steps;
-        if (steps >= MAX_STEPS) {
-            printf("Stopped execution after %d steps.\n", MAX_STEPS);
-            return 0;
+        if (steps >= max_steps) {
+            printf("Stopped execution after %d steps.\n", max_steps);
+            break;
         }
     };
 

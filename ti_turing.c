@@ -5,6 +5,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 #include "ti_turing_band.h"
 #include "ti_turing_control.h"
@@ -13,23 +14,31 @@
 int main(int argc, char *argv[]) {
     printf("TI Deterministic Turing Machine Implementation\n");
 
-    // machine_t * machine = make_machine(3,1,0);
+    int max_steps = 0;
 
-    // machine_set_accepting_state(machine, 0, 2);
-    // machine_set_transition(machine, 0, 1,     1, 1,     DIR_RIGHT);
-    // machine_set_transition(machine, 1, BLANK, 2, BLANK, DIR_RIGHT);
-    // machine_set_transition(machine, 1, 0,     0, 0,     DIR_RIGHT);
+    for (int i = 1; i < argc; i++)
+    {
+        if(argv[i][0] == '-') {
+            if(argv[i][1] == 't') {
+                if(strlen(argv[i]+2)> 0) {
+                    max_steps = atoi(argv[i]+2);
+                } else {
+                    max_steps = atoi(argv[i+1]);
+                    i++;
+                }
+                if(max_steps != 0) {
+                    printf("Set max steps to %d.\n", max_steps);
+                }
+            }
+        } else {
+            char * input = argv[i];
+            char * word;
+            machine_t * machine;
 
-    // char * input = argv[1];
+            parse_machine(&machine, input, &word);
+            int result = machine_evaluate(machine, word, max_steps);
 
-    // int result = machine_evaluate(machine, input);
-
-    char * input = argv[1];
-    char * word;
-    machine_t * machine;
-
-    parse_machine(&machine, input, &word);
-    int result = machine_evaluate(machine, word);
-
-    printf("%d\n", result);
+            printf("%d\n", result);
+        }
+    }
 }

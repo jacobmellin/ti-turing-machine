@@ -55,4 +55,4 @@ void machine_set_accepting_state(
 
 int machine_step(machine_t * machine);
 
-int machine_evaluate(machine_t * machine, char * input);
+int machine_evaluate(machine_t * machine, char * input, int max_steps);
