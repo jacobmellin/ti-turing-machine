@@ -16,6 +16,7 @@ int main(int argc, char *argv[]) {
     printf("TI Deterministic Turing Machine Implementation\n");
 
     int max_steps = 0;
+    int filename_index = -1;
 
     for (int i = 1; i < argc; i++)
     {
@@ -30,6 +31,11 @@ int main(int argc, char *argv[]) {
                 if(max_steps != 0) {
                     printf("Set max steps to %d.\n", max_steps);
                 }
+            } else if(argv[i][1] == 'g') {
+                if(argv[i][2] == '\0') {
+                    filename_index = i+1;
+                    i++;
+                }         
             }
         } else {
             char * input = argv[i];
@@ -41,7 +47,10 @@ int main(int argc, char *argv[]) {
 
             printf("%d\n", result);
 
-            graphviz_draw(machine, "machine.svg");
+            if(filename_index > -1) {
+                printf("Saving graph to %s.\n", argv[filename_index]);
+                graphviz_draw(machine, argv[filename_index]);
+            }
         }
     }
 }
