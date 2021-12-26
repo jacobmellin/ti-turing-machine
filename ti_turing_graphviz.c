@@ -80,7 +80,7 @@ void graphviz_draw(machine_t * machine, char* filename) {
         agsafeset(edge, "label", edge_label, "");
     }
 
-    char * format = "svg";
+    char * format = "pdf";
 
     // Lay out and render
     gvLayout (gvc, graph, "dot");
