@@ -48,7 +48,7 @@ void graphviz_draw(machine_t * machine, char* filename) {
 
         char * arr_right = "▷";
         char * arr_left = "◁";
-        char * neutral = "□";
+        char * neutral = "◻︎";
         char * blank = "⎵";
 
         char edge_label[50];
