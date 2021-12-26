@@ -68,10 +68,10 @@ void update_band(band_t *band, int val, int dir) {
     band->head = next_cell;
 }
 
-void print_band(band_t *band) {
+void print_band(band_t *band, int clean) {
     cell_t * current = band->head;
 
-    // Got to beginning of band
+    // Go to beginning of band
     while(current->left) {
         current = current->left;
     }
@@ -86,7 +86,8 @@ void print_band(band_t *band) {
             cell_output += 48;
         }
 
-        printf("%c", cell_output);
+        if(!clean || cell_output != '_')
+            printf("%c", cell_output);
         // printf("%d", current->val);
         current = current->right;
     }

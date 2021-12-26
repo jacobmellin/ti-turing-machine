@@ -24,4 +24,4 @@ void arr_to_band(band_t * band, int input[], int len);
 void string_to_band(band_t * band, char* input);
 int check_band(band_t *band, int val);
 void update_band(band_t *band, int val, int dir);
-void print_band(band_t *band);
+void print_band(band_t *band, int clean);
