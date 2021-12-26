@@ -10,6 +10,7 @@
 #include "ti_turing_band.h"
 #include "ti_turing_control.h"
 #include "ti_turing_parser.h"
+#include "ti_turing_graphviz.h"
 
 int main(int argc, char *argv[]) {
     printf("TI Deterministic Turing Machine Implementation\n");
@@ -39,6 +40,8 @@ int main(int argc, char *argv[]) {
             int result = machine_evaluate(machine, word, max_steps);
 
             printf("%d\n", result);
+
+            graphviz_draw(machine, "machine.svg");
         }
     }
 }

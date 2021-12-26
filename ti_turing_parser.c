@@ -9,7 +9,6 @@ void parse_machine(machine_t ** machine, char * input, char ** word) {
     int starting_state = 0;
 
     int ones = 0;
-    int delim_pos = 0;
     int current_pos = 0;
 
     // Read states, number of band symbols, number  of accepting states
@@ -123,7 +122,9 @@ void parse_machine(machine_t ** machine, char * input, char ** word) {
 
     if(input[current_pos] == '\0') {
         printf("No input word!\n");
+        *word = "";
+    } else {
+        *word = (input + current_pos+1);
     }
 
-    *word = (input + current_pos+1);
 };
