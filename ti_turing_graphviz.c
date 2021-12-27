@@ -24,10 +24,21 @@ void graphviz_draw(machine_t * machine, char* filename) {
         itoa(i, n, 10);
         Agnode_t * node = agnode(graph, n , 1);
 
+        if(i == 0) {
+            // Draw starting edge
+            Agnode_t * invisible_start = agnode(graph, "start", 1);
+            Agedge_t * starting = agedge(graph, agnode(graph, "start", 0), node, "", 1);
+            agsafeset(invisible_start, "style", "invisible", "");
+            agsafeset(starting, "label", "start", "");
+        }
+
         if(int_arr_get_index(machine->accepting_states, i) > -1) {
             agsafeset(node, "shape", "doublecircle", "");
         }
     }
+
+
+    
 
     // Draw edges
     for(size_t i = 0; i < machine->num_states*3; i++) {
