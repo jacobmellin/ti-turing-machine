@@ -12,7 +12,7 @@
 ```bash
 ./ti_turing c#w
 ```
-Where `c` is the machine coding and `w` is an input word.
+Where `c` is the machine coding and `w` is an input word. Use `c#` if you want to simulate the machine on a λ input word.
 
 The program returns 1 if the word is accepted and 0 if the word is discarded.
 
