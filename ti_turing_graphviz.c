@@ -11,10 +11,11 @@ void graphviz_draw(machine_t * machine, char* filename) {
 
     // Style settings
     agattr(graph, AGNODE, "shape", "circle");
-    agattr(graph, AGNODE, "fontname", "serif");
+    agattr(graph, AGNODE, "fontname", "Libertinus Serif");
+    agattr(graph, AGEDGE, "fontname", "Libertinus Serif");
     agattr(graph, AGEDGE, "arrowhead", "open");
     agattr(graph, AGEDGE, "arrowsize", "0.5");
-    agattr(graph, AGEDGE, "fontsize", "12");
+    // agattr(graph, AGEDGE, "fontsize", "12");
     agattr(graph, AGRAPH, "rankdir", "LR"); // Prefer left to right placement of nodes
 
     // Draw nodes
@@ -57,10 +58,10 @@ void graphviz_draw(machine_t * machine, char* filename) {
             agnode(graph, m, 0),
             "", 1);
 
-        char * arr_right = "▷";
-        char * arr_left = "◁";
-        char * neutral = "◻︎";
-        char * blank = "⎵";
+        char * arr_right = "r";
+        char * arr_left = "l";
+        char * neutral = "n";
+        char * blank = "⊔";
 
         char edge_label[50];
 
